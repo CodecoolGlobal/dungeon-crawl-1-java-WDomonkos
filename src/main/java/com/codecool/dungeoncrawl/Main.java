@@ -144,13 +144,8 @@ public class Main extends Application {
         } catch (ConcurrentModificationException e){
             System.out.println("No monsters on map.");
         }
-        for (Actor monster : map.getMonsters()) {
-            if (monster instanceof Zombie) {
-                ((Zombie) monster).move();
-            } else if (monster instanceof Ghost) {
-                ((Ghost) monster).move();
-            }
-        }
+        map.moveMonster();
+
     }
 
     public Boolean isPlayerDead(Actor player) {
@@ -195,9 +190,7 @@ public class Main extends Application {
     }
 
     public void changeMap() {
-        int previousHealth = map.getPlayer().getHealth();
-        int previousAttackStrength = map.getPlayer().getAttackStrength();
-        ArrayList<Item> previousInventory = map.getPlayer().getInventory();
+        var oldPlayer = map.getPlayer();
 
         if (map.getPlayer().getChangeMap() == true && map.getPlayer().getPlayerOnMap() == 1) {
             map = MapLoader.loadMap(1);
@@ -214,9 +207,6 @@ public class Main extends Application {
             map = MapLoader.loadMap(5);
             new SoundClipTest("horn-fail.wav");
         }
-        map.getPlayer().setChangeMap(false);
-        map.getPlayer().setHealth(previousHealth);
-        map.getPlayer().setAttackStrength(previousAttackStrength);
-        map.getPlayer().setInventory(previousInventory);
+        map.movePlayer(oldPlayer);
     }
 }

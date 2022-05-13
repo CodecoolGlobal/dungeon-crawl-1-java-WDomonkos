@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 
-public class Player extends Actor {
+public class Player extends Actor implements Movable {
     private ArrayList<Item> inventory;
 
     public static final int HEALTH = 10;
@@ -30,11 +30,14 @@ public class Player extends Actor {
 
 
     public Player(Cell cell) {
-        super(cell);
-        this.setHealth(HEALTH);
-        this.setAttackStrength(ATTACK_STRENGTH);
+        super(cell, HEALTH, ATTACK_STRENGTH);
         this.inventory = new ArrayList<>();
         setPlayerOnMap(1);
+    }
+
+    @Override
+    public void move(int dx, int dy) {
+        super.move(dx, dy);
     }
 
     public String getTileName() {
@@ -104,7 +107,7 @@ public class Player extends Actor {
         StringBuilder display = new StringBuilder();
         int keyCount = 0;
         int swordCount = 0;
-        HashMap<String, Integer> inventory_dict = new HashMap<String, Integer>();
+        HashMap<String, Integer> inventory_dict = new HashMap();
         for(Item item : inventory){
             if(item instanceof Key){
                 keyCount+=1;

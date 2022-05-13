@@ -1,8 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.SoundClipTest;
-import com.codecool.dungeoncrawl.logic.actors.Actor;
-import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.actors.*;
 
 import java.util.ArrayList;
 
@@ -51,15 +50,24 @@ public class GameMap {
         }
     }
 
-    public ArrayList<Actor> getMonsters() {
-        return monsters;
-    }
-
     public int getWidth() {
         return width;
     }
 
     public int getHeight() {
         return height;
+    }
+
+    public void moveMonster() {
+        for (Actor monster : monsters) {
+            if (monster instanceof Movable) {
+                ((Movable) monster).move();
+            }
+        }
+    }
+
+    public void movePlayer(Player oldPlayer) {
+        oldPlayer.setCell(player.getCell());
+        player = oldPlayer;
     }
 }

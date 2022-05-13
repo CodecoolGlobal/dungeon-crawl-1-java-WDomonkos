@@ -4,7 +4,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.Drawable;
 
 public abstract class Item implements Drawable {
-    protected Cell cell;
+    private Cell cell;
 
     public Item(Cell cell) {
         this.cell = cell;
